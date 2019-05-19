@@ -1,4 +1,9 @@
 /* See LICENSE file for copyright and license details. */
+
+#define EMDB_SOURCE
+
+#include "emdb.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
