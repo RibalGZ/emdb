@@ -84,8 +84,8 @@ emdb_hexdump(char *p, int s)
 	/* table header */
 	printf (">>      ");
 	for (i = 0; i < 0x10; i++)
-		printf (" +%x",i);
-	printf (" +");
+		printf (" #%x",i);
+	printf (" #");
 	for (i = 0; i < 0x10; i++)
 		printf ("%x",i);
 	printf ("\n");

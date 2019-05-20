@@ -33,6 +33,7 @@ void emdb_hexdump(char *p, int s);
 	printf("[%s:%d] #%s\nVALUE: %s | SIZE: %lu | LENGTH: %lu\n",           \
 	       __FILE__, __LINE__, #x, x, sizeof(x), strlen(x));               \
 	if (d) emdb_hexdump(x, strlen(x));                                     \
+	printf("\n");                                                          \
 } while (0)
 
 #endif
