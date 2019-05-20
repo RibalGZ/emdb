@@ -1,4 +1,6 @@
 /* See LICENSE file for copyright and license details. */
+#include <stdio.h>
+#include <string.h>
 
 #ifndef EMDB_H
 #define EMDB_H
@@ -20,4 +22,10 @@ void emdb_free(void *ptr, const char *file, int line);
 #define free(p) emdb_free(p, __FILE__, __LINE__)
 #endif
 
+#define DUMPINT(x) printf("[%s:%d] #%s\n"                                     \
+                          "VALUE: %d | SIZE: %lu\n\n",                        \
+                          __FILE__, __LINE__, #x, x, sizeof(x))
+#define DUMPSTR(x) printf("[%s:%d] #%s\n"                                     \
+                          "VALUE: %s | SIZE: %lu | LENGTH: %lu\n\n",          \
+                          __FILE__, __LINE__, #x, x, sizeof(x), strlen(x))
 #endif

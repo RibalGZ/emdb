@@ -1,19 +1,19 @@
 /* See LICENSE file for copyright and license details. */
-
-/* Compile with: 
- * gcc -o test test.c emdb.c -Wall -Wextra -Wpedantic -std=c99
- */
+/* Compile with: gcc -o test test.c emdb.c -Wall -Wextra -Wpedantic -std=c99 */
 
 #include "emdb.h"
 
-/* Even though we include stdlib.h after emdb.h, the macros in emdb.h are still
- * in force. */
+/* even though we include stdlib.h after emdb.h, the macros in emdb.h are still in force. */
 #include <stdlib.h>
 
 int main(void)
 {
-    char *test = calloc(10, sizeof(char));
+	int test_integer = 20;
+	char *test_string = "Test string!";
+	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
 
-    /* Not free'ing so we do get a memfile!  */
-    return 0;
+	DUMPINT(test_integer);
+	DUMPSTR(test_string);
+
+	return 0;
 }
