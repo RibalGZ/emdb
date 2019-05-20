@@ -12,10 +12,15 @@ int main(void)
 	char *test_str = "Test string!";
 	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
 
+	DEBUG("Basic dumps");
 	DUMPINT(test_int, 0);
-	DUMPINT(test_int, 1);
 	DUMPSTR(test_str, 0);
+	DEBUG("Extended dumps");
+	DUMPINT(test_int, 1);
 	DUMPSTR(test_str, 1);
+	DEBUGW("This is a warning message");
+	DEBUGE("This is an error message");
+	DEBUGOK("This is an OK message!");
 
 	return 0;
 }
