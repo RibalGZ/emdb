@@ -23,16 +23,16 @@ void emdb_hexdump(char *p, int s);
 #define free(p) emdb_free(p, __FILE__, __LINE__)
 #endif
 
-#define DUMPINT(x) do {                                                       \
-	printf("[%s:%d] #%s\nVALUE: %d | SIZE: %lu\n",                            \
-	       __FILE__, __LINE__, #x, x, sizeof(x));                             \
-	emdb_hexdump((char *)(&x), sizeof(int));                                  \
-	printf("\n");                                                             \
+#define DUMPINT(x, d) do {                                                     \
+	printf("[%s:%d] #%s\nVALUE: %d | SIZE: %lu\n",                         \
+	       __FILE__, __LINE__, #x, x, sizeof(x));                          \
+	if (d) emdb_hexdump((char *)(&x), sizeof(int));                        \
+	printf("\n");                                                          \
 } while (0)
-#define DUMPSTR(x) do {                                                       \
-	printf("[%s:%d] #%s\nVALUE: %s | SIZE: %lu | LENGTH: %lu\n",              \
-	       __FILE__, __LINE__, #x, x, sizeof(x), strlen(x));                  \
-	emdb_hexdump(x, strlen(x));                                               \
+#define DUMPSTR(x, d) do {                                                     \
+	printf("[%s:%d] #%s\nVALUE: %s | SIZE: %lu | LENGTH: %lu\n",           \
+	       __FILE__, __LINE__, #x, x, sizeof(x), strlen(x));               \
+	if (d) emdb_hexdump(x, strlen(x));                                     \
 } while (0)
 
 #endif

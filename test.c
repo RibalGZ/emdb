@@ -12,8 +12,10 @@ int main(void)
 	char *test_str = "Test string!";
 	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
 
-	DUMPINT(test_int);
-	DUMPSTR(test_str);
+	DUMPINT(test_int, 0);
+	DUMPINT(test_int, 1);
+	DUMPSTR(test_str, 0);
+	DUMPSTR(test_str, 1);
 
 	return 0;
 }
