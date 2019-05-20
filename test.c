@@ -8,12 +8,12 @@
 
 int main(void)
 {
-	int test_integer = 20;
-	char *test_string = "Test string!";
+	int test_int = 20;
+	char *test_str = "Test string!";
 	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
 
-	DUMPINT(test_integer);
-	DUMPSTR(test_string);
+	DUMPINT(test_int);
+	DUMPSTR(test_str);
 
 	return 0;
 }

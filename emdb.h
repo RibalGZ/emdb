@@ -14,6 +14,7 @@ void *emdb_malloc(size_t size, const char *file, int line);
 void *emdb_calloc(size_t count, size_t size, const char *file, int line);
 void *emdb_realloc(void *ptr, size_t size, const char *file, int line);
 void emdb_free(void *ptr, const char *file, int line);
+void emdb_hexdump(char *p, int s);
 
 #ifndef EMDB_SOURCE
 #define malloc(s) emdb_malloc(s, __FILE__, __LINE__)
@@ -22,10 +23,16 @@ void emdb_free(void *ptr, const char *file, int line);
 #define free(p) emdb_free(p, __FILE__, __LINE__)
 #endif
 
-#define DUMPINT(x) printf("[%s:%d] #%s\n"                                     \
-                          "VALUE: %d | SIZE: %lu\n\n",                        \
-                          __FILE__, __LINE__, #x, x, sizeof(x))
-#define DUMPSTR(x) printf("[%s:%d] #%s\n"                                     \
-                          "VALUE: %s | SIZE: %lu | LENGTH: %lu\n\n",          \
-                          __FILE__, __LINE__, #x, x, sizeof(x), strlen(x))
+#define DUMPINT(x) do {                                                       \
+	printf("[%s:%d] #%s\nVALUE: %d | SIZE: %lu\n",                            \
+	       __FILE__, __LINE__, #x, x, sizeof(x));                             \
+	emdb_hexdump((char *)(&x), sizeof(int));                                  \
+	printf("\n");                                                             \
+} while (0)
+#define DUMPSTR(x) do {                                                       \
+	printf("[%s:%d] #%s\nVALUE: %s | SIZE: %lu | LENGTH: %lu\n",              \
+	       __FILE__, __LINE__, #x, x, sizeof(x), strlen(x));                  \
+	emdb_hexdump(x, strlen(x));                                               \
+} while (0)
+
 #endif
