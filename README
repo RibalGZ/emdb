@@ -1,2 +1,12 @@
-Embedded Debugger
-===============================================================================
+emdb: embedded debugger
+=======================
+
+| Getting started
+
+| Portability
+
+emdb works on Linux, *BSD, macOS and possibly other UNIX-like systems.
+
+| Dependencies
+
+C99 compiler \o/
