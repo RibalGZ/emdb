@@ -53,9 +53,9 @@ void emdb_hexdump(char *p, int s);
 #define DEBUGOK(...) emdb_debug("OK",      EMDB_GREEN,  __VA_ARGS__)
 
 /* time */
-#define SLEEP(t)       do { struct timespec tv = { .tv_sec = t, .tv_nsec = 0         }; nanosleep(&tv, &tv); } while (0)
-#define SLEEP_MILI(t)  do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t*1000000 }; nanosleep(&tv, &tv); } while (0)
-#define SLEEP_MICRO(t) do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t*1000    }; nanosleep(&tv, &tv); } while (0)
-#define SLEEP_NANO(t)  do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t         }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP(t)       do { struct timespec tv = { .tv_sec = t,             .tv_nsec = 0                              }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_MILI(t)  do { struct timespec tv = { .tv_sec = t/1000,        .tv_nsec = (t%1000)*1000000L              }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_MICRO(t) do { struct timespec tv = { .tv_sec = t/1000000L,    .tv_nsec = (t%1000000L)*1000000000L       }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_NANO(t)  do { struct timespec tv = { .tv_sec = t/1000000000L, .tv_nsec = (t%1000000000L)*1000000000000L }; nanosleep(&tv, &tv); } while (0)
 
 #endif

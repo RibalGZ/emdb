@@ -26,14 +26,14 @@ int main(void)
 	DEBUG("2 seconds...");
 	SLEEP(2);
 	DEBUGOK("Done");
-	DEBUG("2 miliseconds...");
-	SLEEP_MILI(2);
+	DEBUG("1000 miliseconds...");
+	SLEEP_MILI(1000);
 	DEBUGOK("Done");
-	DEBUG("2 nanoseconds...");
-	SLEEP_NANO(2);
+	DEBUG("1000000 microseconds...");
+	SLEEP_MICRO(1000000L);
 	DEBUGOK("Done");
-	DEBUG("2 microseconds...");
-	SLEEP_MICRO(2);
+	DEBUG("1000000000 nanoseconds...");
+	SLEEP_NANO(1000000000L);
 	DEBUGOK("Done");
 
 	return 0;
