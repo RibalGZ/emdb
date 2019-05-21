@@ -1,3 +1,5 @@
+#See LICENSE file for copyright and license details.
+
 LIBSHORT := libemdb.so
 LIBNAME := ${LIBSHORT}.0.0.0
 LIBSONAME := ${LIBSHORT}.0
@@ -36,4 +38,4 @@ clean:
 	rm *.o
 
 purge: clean
-	rm *.so.*
+	rm libemdb.*
