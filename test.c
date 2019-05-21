@@ -22,5 +22,19 @@ int main(void)
 	DEBUGE("This is an error message");
 	DEBUGOK("This is an OK message!");
 
+	DEBUG("Sleeping time");
+	DEBUG("2 seconds...");
+	SLEEP(2);
+	DEBUGOK("Done");
+	DEBUG("2 miliseconds...");
+	SLEEP_MILI(2);
+	DEBUGOK("Done");
+	DEBUG("2 nanoseconds...");
+	SLEEP_NANO(2);
+	DEBUGOK("Done");
+	DEBUG("2 microseconds...");
+	SLEEP_MICRO(2);
+	DEBUGOK("Done");
+
 	return 0;
 }

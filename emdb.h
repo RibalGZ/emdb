@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #ifndef EMDB_H
 #define EMDB_H
@@ -50,5 +51,11 @@ void emdb_hexdump(char *p, int s);
 #define DEBUGW(...)  emdb_debug("WARNING", EMDB_YELLOW, __VA_ARGS__)
 #define DEBUGE(...)  emdb_debug("ERROR",   EMDB_RED,    __VA_ARGS__)
 #define DEBUGOK(...) emdb_debug("OK",      EMDB_GREEN,  __VA_ARGS__)
+
+/* time */
+#define SLEEP(t)       do { struct timespec tv = { .tv_sec = t, .tv_nsec = 0         }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_MILI(t)  do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t*1000000 }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_MICRO(t) do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t*1000    }; nanosleep(&tv, &tv); } while (0)
+#define SLEEP_NANO(t)  do { struct timespec tv = { .tv_sec = 0, .tv_nsec = t         }; nanosleep(&tv, &tv); } while (0)
 
 #endif
