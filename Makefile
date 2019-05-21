@@ -18,6 +18,8 @@ LDFLAGS := ${FPIC} -shared -Wl,-soname,${LIBSONAME}
 
 ${LIBNAME}: ${LIBOBJ}
 	cc ${CFLAGS} ${LDFLAGS} $^ -o $@ -lc
+	ln -fs ${LIBNAME} ${LIBSHORT}
+	ln -fs ${LIBNAME} ${LIBSONAME}
 
 %.o: %.c
 	cc ${CFLAGS} ${FPIC} -c $<
