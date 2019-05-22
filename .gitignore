@@ -1,4 +1,5 @@
-test
+test/test
+test/*.mem
 libemdb.*
 *.o
-*mem
+*.mem
