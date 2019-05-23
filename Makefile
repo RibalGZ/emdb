@@ -1,41 +1,33 @@
 #See LICENSE file for copyright and license details.
+include config.mk
 
-LIBSHORT := libemdb.so
-LIBNAME := $(LIBSHORT).0.0.0
-LIBSONAME := $(LIBSHORT).0
+LIBSRC = emdb.c
+LIBOBJ = ${LIBSRC:.c=.o}
 
-LIBSRC := $(wildcard *.c)
-LIBOBJ := $(LIBSRC:%.c=%.o)
+.PHONY: clean install
 
-PREFIX ?= /usr/local
-LIBDIR ?= $(PREFIX)/lib
-HEADDIR ?= $(PREFIX)/include
+all: options ${LIBNAME}
 
-CPPFLAGS := -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=2
-CFLAGS := -std=c99 -pedantic -Wall -Wno-deprecated-declarations $(CPPFLAGS)
-FPIC := -fPIC
-LDFLAGS := $(FPIC) -shared -Wl,-soname,$(LIBSONAME)
+options:
+	@echo ${LIBNAME} build options:
+	@echo "CFLAGS   = ${CFLAGS}"
+	@echo "LDFLAGS  = ${LDFLAGS}"
+	@echo "CC       = ${CC}"
 
-.PHONY: clean purge install
-
-$(LIBNAME): $(LIBOBJ)
-	cc $(CFLAGS) $(LDFLAGS) $^ -o $@ -lc
-	ln -fs $(LIBNAME) $(LIBSHORT)
-	ln -fs $(LIBNAME) $(LIBSONAME)
+${LIBNAME}: ${LIBOBJ}
+	${CC} ${CFLAGS} ${LDFLAGS} $^ -o $@
+	ln -fs ${LIBNAME} ${LIBSHORT}
+	ln -fs ${LIBNAME} ${LIBSONAME}
 
 %.o: %.c
-	cc $(CFLAGS) $(FPIC) -c $<
+	${CC} ${CFLAGS} ${FPIC} -c $<
 
 install:
-	install -m 644 emdb.h $(DESTDIR)$(HEADDIR)/emdb.h
-
-	install -m 755 $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
-	ln -fs $(DESTDIR)$(LIBDIR)/$(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBSHORT)
-	ln -fs $(DESTDIR)$(LIBDIR)/$(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBSONAME)
+	install -m 644 emdb.h ${DESTDIR}${HEADDIR}/emdb.h
+	install -m 755 ${LIBNAME} ${DESTDIR}${LIBDIR}/${LIBNAME}
+	ln -fs ${DESTDIR}${LIBDIR}/${LIBNAME} ${DESTDIR}${LIBDIR}/${LIBSHORT}
+	ln -fs ${DESTDIR}${LIBDIR}/${LIBNAME} ${DESTDIR}${LIBDIR}/${LIBSONAME}
 	ldconfig
 
 clean:
-	rm -rf *.o
-
-purge: clean
-	rm -rf libemdb.*
+	rm -f libemdb.* ${LIBOBJ}
