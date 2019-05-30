@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main(void)
-{
+{	 
 	int test_int = 20;
 	char *test_str = "Test string!";
 	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
@@ -17,6 +17,12 @@ int main(void)
 	DEBUGW("This is a warning message");
 	DEBUGE("This is an error message");
 	DEBUGOK("This is an OK message!");
+
+	if(emdb_var_is_dyn(test))
+		DEBUGOK("Detected dynamic variable");
+
+	if(!emdb_var_is_dyn(&test_int))
+		DEBUGOK("Detected static variable");
 
 	DEBUG("Sleeping time");
 	DEBUG("2 seconds...");
