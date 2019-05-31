@@ -8,6 +8,19 @@
 #include <stdio.h>
 #include <unistd.h>
 
+static size_t heap_catalog[HEAP_MAX];
+static size_t heap_last = 0;
+static size_t heap_set = 0;
+
+static void
+heap_init(void)
+{
+	if(!heap_set) {
+		memset(heap_catalog, 0, sizeof(heap_catalog));
+		heap_set = 1;
+	}
+}
+
 void
 emdb_mem_file(void *ptr, size_t size, const char *file, int line)
 {
@@ -22,11 +35,15 @@ emdb_mem_file(void *ptr, size_t size, const char *file, int line)
 void *
 emdb_malloc(size_t size, const char *file, int line)
 {
+	heap_init();
+	
 	void *p;
 
 	if (!(p = malloc(size)))
 		return NULL;
 
+	heap_catalog[heap_last] = (size_t)p;
+	++heap_last;
 	emdb_mem_file(p, size, file, line);
 
 	return p;
@@ -35,11 +52,15 @@ emdb_malloc(size_t size, const char *file, int line)
 void *
 emdb_calloc(size_t count, size_t size, const char *file, int line)
 {
+	heap_init();
+	
 	void *p;
 
 	if (!(p = calloc(count, size)))
 		return NULL;
 
+	heap_catalog[heap_last] = (size_t)p;
+	++heap_last;
 	emdb_mem_file(p, count * size, file, line);
 
 	return p;
@@ -66,13 +87,35 @@ emdb_realloc(void *ptr, size_t size, const char *file, int line)
 void
 emdb_free(void *ptr, const char *file, int line)
 {
+	heap_init();
+	
 	char buf[256];
 
 	sprintf(buf, "%p.mem", ptr);
 	if (unlink(buf) < 0)
 		printf("Double free: %p File: %s Line: %d\n", ptr, file, line);
-
+	 
 	free(ptr);
+
+	size_t i;
+	for(i = 0; i < HEAP_MAX; ++i) {
+		if(heap_catalog[i] == (size_t)ptr) {
+			heap_catalog[i] = 0;
+		}
+	}
+}
+
+int
+emdb_var_is_dyn(void *ptr)
+{
+	size_t i;
+	for(i = 0; i < HEAP_MAX; ++i) {
+		if(heap_catalog[i] == (size_t)ptr) {
+			return 1;
+		}
+	}
+
+	return 0;
 }
 
 void

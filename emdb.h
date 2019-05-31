@@ -17,11 +17,14 @@
 #define EMDB_PURPLE  "\033[1m\033[34m"
 #define EMDB_RESET   "\033[0m"
 
+#define HEAP_MAX 1024 // Maximum allocation calls allowed
+
 void emdb_mem_file(void *ptr, size_t size, const char *file, int line);
 void *emdb_malloc(size_t size, const char *file, int line);
 void *emdb_calloc(size_t count, size_t size, const char *file, int line);
 void *emdb_realloc(void *ptr, size_t size, const char *file, int line);
 void emdb_free(void *ptr, const char *file, int line);
+int emdb_var_is_dyn(void *ptr);
 void emdb_hexdump(char *p, int s);
 
 #ifndef EMDB_SOURCE
