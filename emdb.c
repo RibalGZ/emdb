@@ -94,7 +94,7 @@ emdb_free(void *ptr, const char *file, int line)
 	sprintf(buf, "%p.mem", ptr);
 	if (unlink(buf) < 0)
 		printf("Double free: %p File: %s Line: %d\n", ptr, file, line);
-	
+	 
 	free(ptr);
 
 	size_t i;
@@ -125,7 +125,7 @@ emdb_hexdump(char *p, int s)
 	unsigned char c[0x10];
 
 	/* table header */
-	printf (">>		 ");
+	printf (">>      ");
 	for (i = 0; i < 0x10; i++)
 		printf (" #%x",i);
 	printf (" #");
@@ -144,7 +144,7 @@ emdb_hexdump(char *p, int s)
 			printf (" %02x", p[i]);
 			c[i & 0xf] = ((p[i] < 0x20) || (p[i] > 0x7e)) ? '.' : p[i];
 		} else {
-			printf ("	");
+			printf ("   ");
 			c[i & 0xf] = ' ';
 		}
 	}

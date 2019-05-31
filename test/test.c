@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main(void)
-{	 
+{
 	int test_int = 20;
 	char *test_str = "Test string!";
 	char *test = calloc(10, sizeof(char)); /* not free'ing so we do get a memfile! */
