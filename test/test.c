@@ -18,10 +18,10 @@ int main(void)
 	DEBUGE("This is an error message");
 	DEBUGOK("This is an OK message!");
 
-	if(emdb_var_is_dyn(test))
+	if (emdb_var_is_dyn(test))
 		DEBUGOK("Detected dynamic variable");
 
-	if(!emdb_var_is_dyn(&test_int))
+	if (!emdb_var_is_dyn(&test_int))
 		DEBUGOK("Detected static variable");
 
 	DEBUG("Sleeping time");

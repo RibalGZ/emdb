@@ -15,7 +15,7 @@ static size_t heap_set = 0;
 static void
 heap_init(void)
 {
-	if(!heap_set) {
+	if (!heap_set) {
 		memset(heap_catalog, 0, sizeof(heap_catalog));
 		heap_set = 1;
 	}
@@ -98,8 +98,8 @@ emdb_free(void *ptr, const char *file, int line)
 	free(ptr);
 
 	size_t i;
-	for(i = 0; i < HEAP_MAX; ++i) {
-		if(heap_catalog[i] == (size_t)ptr) {
+	for (i = 0; i < HEAP_MAX; ++i) {
+		if (heap_catalog[i] == (size_t)ptr) {
 			heap_catalog[i] = 0;
 		}
 	}
@@ -109,8 +109,8 @@ int
 emdb_var_is_dyn(void *ptr)
 {
 	size_t i;
-	for(i = 0; i < HEAP_MAX; ++i) {
-		if(heap_catalog[i] == (size_t)ptr) {
+	for (i = 0; i < HEAP_MAX; ++i) {
+		if (heap_catalog[i] == (size_t)ptr) {
 			return 1;
 		}
 	}
@@ -125,28 +125,28 @@ emdb_hexdump(char *p, int s)
 	unsigned char c[0x10];
 
 	/* table header */
-	printf (">>      ");
+	printf(">>      ");
 	for (i = 0; i < 0x10; i++)
-		printf (" #%x",i);
-	printf (" #");
+		printf(" #%x",i);
+	printf(" #");
 	for (i = 0; i < 0x10; i++)
-		printf ("%x",i);
-	printf ("\n");
+		printf("%x",i);
+	printf("\n");
 
 	/* content */
 	for (i = 0; i < ((s + 15) & 0xfff0); i++) {
 		if ((i % 0x10) == 0) {
 			if (i != 0)
-				printf ("  %*.*s\n", 0x10, 0x10, c);
-			printf (">> %04x ",i);
+				printf("  %*.*s\n", 0x10, 0x10, c);
+			printf(">> %04x ",i);
 		}
 		if (i < s) {
-			printf (" %02x", p[i]);
+			printf(" %02x", p[i]);
 			c[i & 0xf] = ((p[i] < 0x20) || (p[i] > 0x7e)) ? '.' : p[i];
 		} else {
-			printf ("   ");
+			printf("   ");
 			c[i & 0xf] = ' ';
 		}
 	}
-	printf ("  %*.*s\n", 0x10, 0x10, c);
+	printf("  %*.*s\n", 0x10, 0x10, c);
 }
